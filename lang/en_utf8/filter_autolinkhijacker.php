@@ -6,12 +6,12 @@
  * http://docs.moodle.org/dev/Filters#A_note_on_language_strings
  */
 
-$string['filtername'] = 'Auto-link Hijacker (filter folder)';
-$string['url']        = 'Target URL';
-$string['urldefault'] = 'http://www.forvo.com/word/{searchterm}#en';
+$string['filtername'] = 'Auto-link Hijacker';
+$string['url']            = 'New target URL';
+$string['urldefault']   = 'http://en.wikipedia.org/wiki/{glossaryterm}';
 $string['urlconfig']  = 
      'Please enter the new target URL for glossary auto-linking.<p />'
-    .'Just insert the <strong>{searchterm}</strong> at the appropriate place. <p />'
+    .'Just insert the <strong>{glossaryterm}</strong> at the appropriate place. <p />'
     .'Other examples: <br />'
-    .'http://en.wikipedia.org/wiki/{searchterm}<br />'
-    .'http://docs.moodle.org/19/en/{searchterm}';
+    .'http://www.forvo.com/word/{glossaryterm}#en <br />'
+    .'http://docs.moodle.org/19/en/{glossaryterm}';

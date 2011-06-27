@@ -19,11 +19,11 @@ function autolinkhijacker_filter($courseid, $text) {
             get_string('urldefault', 'filter_autolinkhijacker')
         );
     }
-
+    
     $replacement_pattern = $CFG->filter_autolinkhijacker_url;
 
-    preg_match_all(
-        '/(.+)\{searchterm\}(.*)/i',
+    preg_match_all (
+        '/(.+)\{glossaryterm\}(.*)/i',
         $replacement_pattern,
         $matches
     );
@@ -31,10 +31,22 @@ function autolinkhijacker_filter($courseid, $text) {
     $url_start  = $matches[1][0];
     $url_end    = $matches[2][0];
 
+    // Dissect the original URL for future re-use 
+    preg_match_all (
+        '/<a.+?class="([^"]*)".+title="([^"]*)".+href="(.+?concept=(.+?))">/six',
+        $text,
+        $urlparts
+    );
+    
+    $class    = $urlparts[1][0];
+    $title        = $urlparts[2][0];
+    $href        = $urlparts[3][0];
+    $concept = $urlparts[4][0];    
+    
     // Replace the target URL of all glossary auto-links.
     $text = preg_replace(
-        '/<a.+?href=".+?concept=(.+?)"[^>]+?>/six',
-        "<a href=\"$url_start$1$url_end\" target='_blank' title='New target URL: $url_start$1$url_end'>",
+        '/<a.+?\/mod\/glossary.+?>/six',
+        "<a href=\"$url_start$concept$url_end\" target='_blank' title='$title'>",
         $text
     );
     return $text;
