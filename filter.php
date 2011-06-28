@@ -31,22 +31,22 @@ function autolinkhijacker_filter($courseid, $text) {
     $url_start  = $matches[1][0];
     $url_end    = $matches[2][0];
 
-    // Dissect the original URL for future re-use 
-    preg_match_all (
-        '/<a.+?class="([^"]*)".+title="([^"]*)".+href="(.+?concept=(.+?))">/six',
-        $text,
-        $urlparts
-    );
-    
-    $class    = $urlparts[1][0];
-    $title        = $urlparts[2][0];
-    $href        = $urlparts[3][0];
-    $concept = $urlparts[4][0];    
-    
     // Replace the target URL of all glossary auto-links.
-    $text = preg_replace(
-        '/<a.+?\/mod\/glossary.+?>/six',
-        "<a href=\"$url_start$concept$url_end\" target='_blank' title='$title'>",
+    
+    $regex = '/
+        <a
+        .+?
+        class="(?P<class>[^"]*)"
+        .+?
+        title="([^"]*)"
+        .+?
+        href="(.+?concept=(.+?))"
+        >
+        /six';
+    
+    $text = preg_replace (
+        $regex,
+        "<a href=\"$url_start$4$url_end\" target='_blank' title='$2'>",
         $text
     );
     return $text;
