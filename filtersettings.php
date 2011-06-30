@@ -1,6 +1,6 @@
 <?php
 /*
- * This is the filter settings file for the Autolink Hijacker filter.
+ * This is the filter settings file for the Auto-link Hijacker filter for Moodle 2.0.
  * You can enter a replacement URL for glossary autolinking.
  */
 

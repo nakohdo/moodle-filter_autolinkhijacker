@@ -4,15 +4,12 @@
  * The idea is from Timothy Takemoto, see "Automatic pronounciatin guide"
  * http://moodle.org/mod/forum/discuss.php?d=162387
  *
- * Moodle 1.9 glossary link pattern:
- * /mod/glossary/showentry.php?courseid=1&concept=gorilla
  * Moodle 2.0 glossar link pattern:
- * /mod/glossary/showentry.php?courseid=3&amp;eid=1&amp;displayformat=dictionary
- *
- * <a href="http://localhost/moodle-MOODLE_20_WEEKLY/mod/glossary/showentry.php?courseid=3&amp;eid=1&amp;displayformat=dictionary" 
+ * <a href="/mod/glossary/showentry.php?courseid=3&amp;eid=1&amp;displayformat=dictionary" 
  * title="Web concepts: JavaScript" 
  * class="glossary autolink glossaryid6">JavaScript</a>
- * Replacement pattern and default URL: http://www.forvo.com/word/{searchterm}#en
+ *
+ * Replacement pattern and default URL: en.wikipedia.org/wiki/{glossaryterm}
  */
 
 function autolinkhijacker_filter($courseid, $text) {
@@ -27,19 +24,29 @@ function autolinkhijacker_filter($courseid, $text) {
 
     $replacement_pattern = $CFG->filter_autolinkhijacker_url;
 
-    preg_match_all(
-        '/(.+)\{searchterm\}(.*)/i',
+    preg_match(
+        '/(.+)\{glossaryterm\}(.*)/i',
         $replacement_pattern,
-        $matches
+        $urlparts
     );
 
-    $url_start  = $matches[1][0];
-    $url_end    = $matches[2][0];
+    $urlstart  = $urlparts[1];
+    $urlend    = $urlparts[2];
 
     // Replace the target URL of all glossary auto-links.
+    $regex = '/
+        <a
+        .+?
+        href=".+?"
+        .+?
+        title=".+?:\s+?(.+?)"
+        [^>]*?
+        >
+        /six';
+    
     $text = preg_replace(
-        '/<a.+?href=".+?".+?title=".+?:\s+?(.+?)"[^>]*?>/six',
-        "<a href=\"$url_start$1$url_end\" target='_blank' title=\"$url_start$1$url_end\">",
+        $regex,
+        "<a href=\"$urlstart$1$urlend\" target='_blank' title=\"$urlstart$1$urlend\">",
         $text
     );
     return $text;
