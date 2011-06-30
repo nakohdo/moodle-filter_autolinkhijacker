@@ -1,5 +1,6 @@
 <?php
-/* This function provides automatic linking to an arbitry URL
+/* Auto-link Hijacker filter for Moodle 2.0
+ * This function provides automatic linking to an arbitry URL
  * for words from a glossary for which auto-linking is activated.
  * The idea is from Timothy Takemoto, see "Automatic pronounciatin guide"
  * http://moodle.org/mod/forum/discuss.php?d=162387

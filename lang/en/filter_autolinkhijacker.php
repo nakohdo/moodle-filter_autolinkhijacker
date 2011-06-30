@@ -1,10 +1,7 @@
 <?php
 /*
- * Language file for the Auto-link Hijacker filter.
- * See the following links why the 'filename' doesn't work, and a workaround:
- *  http://tracker.moodle.org/browse/MDL-17684
- * http://docs.moodle.org/dev/Filters#A_note_on_language_strings
- */
+ * Language file for the Auto-link Hijacker filter for Moodle 2.0.
+*/
 
 $string['filtername']   = 'Auto-link Hijacker';
 $string['url']              = 'New target URL';
