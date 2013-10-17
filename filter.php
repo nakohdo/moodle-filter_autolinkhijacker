@@ -1,19 +1,33 @@
 <?php
-/* Auto-link Hijacker filter for Moodle 2.0
- * This function provides automatic linking to an arbitry URL
- * for words from a glossary for which auto-linking is activated.
- * The idea is from Timothy Takemoto, see "Automatic prononunciatin guide using forvo or howjsay"
- * http://moodle.org/mod/forum/discuss.php?d=162387
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * Filter redirecting auto-linked glossary entries to an arbitray URL.
  *
- * Moodle 2.0 glossar link pattern:
- * <a href="/mod/glossary/showentry.php?courseid=3&amp;eid=1&amp;displayformat=dictionary"
- * title="Web concepts: JavaScript"
- * class="glossary autolink glossaryid6">JavaScript</a>
- *
- * Replacement pattern and default URL: en.wikipedia.org/wiki/{glossaryterm}
+ * @package    filter
+ * @subpackage autolinkhijacker
+ * @copyright  2011 onwards Frank Ralf {@link webmaster@nakohdo.de}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-function autolinkhijacker_filter($courseid, $text) {
+defined('MOODLE_INTERNAL') || die();
+
+class filter_autolinkhijacker extends moodle_text_filter {
+
+    public function filter($text, array $options = array()) {
 
     global $CFG;
     // Derive replacement URL from replacement pattern from settings.
@@ -51,4 +65,5 @@ function autolinkhijacker_filter($courseid, $text) {
         $text
     );
     return $text;
+    }
 }
